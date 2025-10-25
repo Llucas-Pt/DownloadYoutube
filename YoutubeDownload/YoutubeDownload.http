@@ -1,0 +1,6 @@
+@YoutubeDownload_HostAddress = http://localhost:5136
+
+GET {{YoutubeDownload_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

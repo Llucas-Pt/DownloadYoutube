@@ -1,0 +1,28 @@
+services:
+  back:
+    build:
+      context: .          # agora pega a pasta raiz
+      dockerfile: Back/Dockerfile
+    ports:
+      - "5136:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - ytdownload-net
+
+  front:
+    build:
+      context: ./Front
+      dockerfile: Dockerfile
+
+    container_name: youtube-front
+    ports:
+      - "3005:80"
+    depends_on:
+      - back
+    networks:
+      - ytdownload-net
+
+networks:
+  ytdownload-net:
+    driver: bridge

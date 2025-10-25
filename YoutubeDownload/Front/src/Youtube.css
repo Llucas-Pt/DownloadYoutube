@@ -1,0 +1,145 @@
+body {
+    background: #E2E8EE;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 50px 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    margin-top: 30%;
+}
+
+.card {
+    padding: 25px;
+    width: 400px;
+}
+
+.history-card {
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 25px;
+    width: 400px;
+}
+
+
+.url-input {
+    width: 92%;
+    padding: 12px 15px;
+    border-radius: 19px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+    background-color: white;
+    color: #0000009c;
+}
+
+    .url-input:focus {
+        border-color: #4f8ef7;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+.toggle-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+    .toggle-buttons button {
+        flex: 1;
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid #cccccc00;
+        background: #f8f9fa00;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s;
+        color: #495057;
+    }
+
+        .toggle-buttons button.active {
+            background: #2d384b1f;
+            color: #919497;
+            border-color: #ECF1F9;
+        }
+
+        .toggle-buttons button:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .toggle-buttons button:hover {
+            background: #e8f0fe;
+            border-color: #bcd3ff;
+            color: #2a5edb;
+        }
+
+.download-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    background: #4f8ef794;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .download-btn:hover {
+        background: #3b70d1;
+        border: white;
+    }
+
+.download-link a {
+    color: #4f8ef7;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.history-card h2 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000d6;
+}
+
+.history-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-card th, .history-card td {
+    padding: 2px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    color: #000000b5;
+}
+
+.history-card .success {
+    color: green;
+    font-weight: 600;
+}
+
+.history-card .error {
+    color: red;
+    font-weight: 600;
+}
