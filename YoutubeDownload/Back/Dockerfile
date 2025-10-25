@@ -4,6 +4,7 @@ WORKDIR /app  # mudar de /src para /app
 
 # Copia apenas o csproj e restaura pacotes
 COPY ["Back/YoutubeDownload.csproj", "./"]
+COPY Back/. .
 RUN dotnet restore
 
 # Copia tudo da pasta back
