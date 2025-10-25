@@ -7,7 +7,7 @@ COPY ["YoutubeDownload.csproj", "./"]
 RUN dotnet restore
 
 # Copia tudo da pasta back
-COPY Back/. .  
+COPY . .  
 RUN dotnet publish -c Release -o /app/out
 
 # Stage 2: Runtime
