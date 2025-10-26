@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+﻿/* eslint-disable no-undef */
+import { useState } from "react";
 import './Youtube.css'
 
 
@@ -8,14 +9,16 @@ function App() {
     const [format, setFormat] = useState("mp4");
     //const [downloadLink, setDownloadLink] = useState(null);
     const [isLoading, setIsLoading] = useState(false); // 👈 novo estado de carregamento
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5136";
 
+    
 
     const handleDownload = async () => {
         try {
 
             setIsLoading(true); // ativa o “Carregando...”
 
-            const response = await fetch("http://localhost:5136/api/YoutubeDownload", {
+            const response = await fetch(`${apiUrl}/api/YoutubeDownload`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url, format }),

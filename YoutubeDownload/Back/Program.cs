@@ -16,6 +16,10 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Pega a porta que o Render define, ou usa 8080 como fallback
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

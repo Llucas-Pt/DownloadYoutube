@@ -1,13 +1,15 @@
 # Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app  # mudar de /src para /app
+
+# Diretório de trabalho
+WORKDIR /app
 
 # Copia apenas o csproj e restaura pacotes
 COPY ["YoutubeDownload.csproj", "./"]
 RUN dotnet restore
 
-# Copia tudo da pasta back
-COPY . .  
+# Copia todos os arquivos do backend
+COPY . .
 RUN dotnet publish -c Release -o /app/out
 
 # Stage 2: Runtime
