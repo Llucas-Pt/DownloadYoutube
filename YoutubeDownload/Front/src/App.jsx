@@ -8,8 +8,8 @@ function App() {
     const [url, setUrl] = useState("");
     const [format, setFormat] = useState("mp4");
     //const [downloadLink, setDownloadLink] = useState(null);
-    const [isLoading, setIsLoading] = useState(false); // 👈 novo estado de carregamento
-    const apiUrl = process.env.REACT_APP_API_URL || "https://localhost:8080";
+    const [isLoading, setIsLoading] = useState(false); // estado de carregamento
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
     
 
