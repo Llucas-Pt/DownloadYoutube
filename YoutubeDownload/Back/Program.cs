@@ -10,7 +10,7 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:3005", // local
-                "https://downloadyoutube-frontend.onrender.com" // ✅ troque pelo URL real do front no Render
+                "https://downloadyoutube-frontend.onrender.com" 
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 
 // Render define a variável PORT automaticamente
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://*:{port}");
+builder.WebHost.UseUrls($"https://*:{port}");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -33,7 +33,7 @@ GlobalFFOptions.Configure(new FFOptions
     BinaryFolder = "/usr/bin"
 });
 
-// 🔹 Log útil no console Render
+//  Log útil no console Render
 Console.WriteLine($"🚀 API YoutubeDownload iniciada na porta {port}, ambiente: {app.Environment.EnvironmentName}");
 
 app.MapGet("/", () => "✅ API YoutubeDownload rodando com sucesso!");
