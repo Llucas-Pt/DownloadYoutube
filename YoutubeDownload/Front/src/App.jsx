@@ -9,7 +9,7 @@ function App() {
     const [format, setFormat] = useState("mp4");
     //const [downloadLink, setDownloadLink] = useState(null);
     const [isLoading, setIsLoading] = useState(false); // 👈 novo estado de carregamento
-    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5136";
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
     
 
@@ -18,7 +18,7 @@ function App() {
 
             setIsLoading(true); // ativa o “Carregando...”
 
-            const response = await fetch("https://downloadyoutube-backend.onrender.com/api/YoutubeDownload", {
+            const response = await fetch(`${apiUrl}/api/YoutubeDownload`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url, format }),

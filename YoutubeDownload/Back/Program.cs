@@ -9,8 +9,8 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                "http://localhost:3005", // local
-                "https://downloadyoutube-frontend.onrender.com" 
+                "http://localhost:3005", // ambiente local
+                "https://downloadyoutube-frontend.onrender.com" // URL do front hospedado no Render
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -19,7 +19,12 @@ builder.Services.AddCors(options =>
 
 // Render define a variável PORT automaticamente
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"https://*:{port}");
+
+// 🔧 Corrigido: remover HTTPS, pois Render já faz SSL externamente
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port)); // Escuta apenas em HTTP
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -27,15 +32,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// FFmpeg no Linux (Render)
+// Configuração do FFmpeg (Render usa containers Linux)
 GlobalFFOptions.Configure(new FFOptions
 {
     BinaryFolder = "/usr/bin"
 });
 
-//  Log útil no console Render
+// Log útil no console do Render
 Console.WriteLine($"🚀 API YoutubeDownload iniciada na porta {port}, ambiente: {app.Environment.EnvironmentName}");
 
+// Endpoint raiz (teste rápido no navegador)
 app.MapGet("/", () => "✅ API YoutubeDownload rodando com sucesso!");
 
 // Swagger — visível apenas se for ambiente local
@@ -48,4 +54,5 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowReactApp");
 app.UseAuthorization();
 app.MapControllers();
+
 app.Run();
