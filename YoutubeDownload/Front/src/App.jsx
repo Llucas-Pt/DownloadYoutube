@@ -18,7 +18,7 @@ function App() {
 
             setIsLoading(true); // ativa o “Carregando...”
 
-            const response = await fetch("http://downloadyoutube-backend.onrender.com/api/YoutubeDownload", {
+            const response = await fetch("https://downloadyoutube-backend.onrender.com/api/YoutubeDownload", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url, format }),
