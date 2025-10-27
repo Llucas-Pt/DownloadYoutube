@@ -1,22 +1,23 @@
-using FFMpegCore;
+﻿using FFMpegCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS: front local ou URL do Render
+// CORS: libera para o front local e o do Render
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
-        policy =>
-        {
-            policy
-                .WithOrigins("http://localhost:3005") // localmente
-                                                      //.WithOrigins("https://front-render-url.onrender.com") // produ��o
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:3005", // local
+                "https://downloadyoutube-frontend.onrender.com" // ✅ troque pelo URL real do front no Render
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
 
-// Pega a porta que o Render define, ou usa 8080 como fallback
+// Render define a variável PORT automaticamente
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://*:{port}");
 
@@ -26,12 +27,18 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// FFmpeg no container Linux
+// FFmpeg no Linux (Render)
 GlobalFFOptions.Configure(new FFOptions
 {
     BinaryFolder = "/usr/bin"
 });
 
+// 🔹 Log útil no console Render
+Console.WriteLine($"🚀 API YoutubeDownload iniciada na porta {port}, ambiente: {app.Environment.EnvironmentName}");
+
+app.MapGet("/", () => "✅ API YoutubeDownload rodando com sucesso!");
+
+// Swagger — visível apenas se for ambiente local
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -42,62 +49,3 @@ app.UseCors("AllowReactApp");
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
-
-
-
-
-
-/*using System.IO;
-using FFMpegCore;
-using YoutubeDownload;
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowReactApp",
-        policy =>
-        {
-            policy
-                .WithOrigins("http://localhost:3005") // endere�o do seu front-end React
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
-
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-
-
-// Configura FFmpeg embutido
-var ffmpegPath = Path.Combine(AppContext.BaseDirectory, "Back", "ffmpeg", "bin", "ffmpeg.exe");
-if (!File.Exists(ffmpegPath))
-{
-    throw new FileNotFoundException($"ffmpeg.exe n�o encontrado em: {ffmpegPath}");
-}
-
-GlobalFFOptions.Configure(new FFOptions
-{
-    BinaryFolder = Path.Combine(AppContext.BaseDirectory, "Back", "ffmpeg", "bin")
-});
-
-
-
-
-// Ativa o Swagger
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseCors("AllowReactApp"); // CORS
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
-*/
