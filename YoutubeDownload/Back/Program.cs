@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 
 // Render define a variável PORT automaticamente
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"https://*:{port}");
+builder.WebHost.UseUrls($"http://*:{port}");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
