@@ -19,12 +19,7 @@ builder.Services.AddCors(options =>
 
 // Render define a variável PORT automaticamente
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-
-// 🔧 Corrigido: remover HTTPS, pois Render já faz SSL externamente
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(int.Parse(port)); // Escuta apenas em HTTP
-});
+builder.WebHost.UseUrls($"https://*:{port}");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
