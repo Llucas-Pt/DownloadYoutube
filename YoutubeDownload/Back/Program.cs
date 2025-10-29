@@ -19,7 +19,14 @@ builder.Services.AddCors(options =>
 
 // Render define a variável PORT automaticamente
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
+// Força HTTP
 builder.WebHost.UseUrls($"http://*:{port}");
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port)); // Apenas HTTP
+});
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
