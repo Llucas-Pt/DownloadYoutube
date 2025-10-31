@@ -9,7 +9,7 @@ function App() {
     const [format, setFormat] = useState("mp4");
     //const [downloadLink, setDownloadLink] = useState(null);
     const [isLoading, setIsLoading] = useState(false); // estado de carregamento
-    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     
 

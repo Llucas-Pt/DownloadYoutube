@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using YoutubeExplode;
-using YoutubeExplode.Videos.Streams;
-using FFMpegCore;
+﻿using FFMpegCore;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
+using YoutubeExplode;
+using YoutubeExplode.Common;
+using YoutubeExplode.Videos.Streams;
 
 namespace YoutubeDownload.Back.Controllers
 {
@@ -19,12 +21,7 @@ namespace YoutubeDownload.Back.Controllers
 
             try
             {
-                var cookies = Environment.GetEnvironmentVariable("YOUTUBE_COOKIES");
-                var handler = new HttpClientHandler { UseCookies = false };
-                var http = new HttpClient(handler);
-                http.DefaultRequestHeaders.Add("Cookie", cookies);
-
-                var youtube = new YoutubeClient(http);
+                var youtube = new YoutubeClient();
 
 
                 var video = await youtube.Videos.GetAsync(request.Url);

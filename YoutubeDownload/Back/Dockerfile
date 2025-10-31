@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y ffmpeg
 COPY --from=build /app/publish .
 
 ENV ASPNETCORE_URLS=http://+:8080
-ENV YOUTUBE_COOKIES="VISITOR_INFO1_LIVE=valor; PREF=valor; YSC=valor;"
+# ENV YOUTUBE_COOKIES="VISITOR_INFO1_LIVE=valor; PREF=valor; YSC=valor"
 
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "YoutubeDownload.dll"]
