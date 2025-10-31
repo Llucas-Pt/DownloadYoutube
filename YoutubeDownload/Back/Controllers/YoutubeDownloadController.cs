@@ -19,7 +19,14 @@ namespace YoutubeDownload.Back.Controllers
 
             try
             {
-                var youtube = new YoutubeClient();
+                var cookies = Environment.GetEnvironmentVariable("YOUTUBE_COOKIES");
+                var handler = new HttpClientHandler { UseCookies = false };
+                var http = new HttpClient(handler);
+                http.DefaultRequestHeaders.Add("Cookie", cookies);
+
+                var youtube = new YoutubeClient(http);
+
+
                 var video = await youtube.Videos.GetAsync(request.Url);
                 var streamManifest = await youtube.Videos.Streams.GetManifestAsync(video.Id);
 
