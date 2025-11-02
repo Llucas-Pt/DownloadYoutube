@@ -27,6 +27,8 @@ namespace YoutubeDownload.Back.Controllers
 
                 var http = new HttpClient(handler);
                 http.DefaultRequestHeaders.Add("Cookie", cookies);
+                Console.WriteLine("Cookies recebidos: " + cookies);
+
 
                 var youtube = new YoutubeClient(http);
 
