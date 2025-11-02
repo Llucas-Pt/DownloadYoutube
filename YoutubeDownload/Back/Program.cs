@@ -42,10 +42,10 @@ GlobalFFOptions.Configure(new FFOptions
 });
 
 // Log útil no console do Render
-Console.WriteLine($"🚀 API YoutubeDownload iniciada na porta {port}, ambiente: {app.Environment.EnvironmentName}");
+Console.WriteLine($"API YoutubeDownload iniciada na porta {port}, ambiente: {app.Environment.EnvironmentName}");
 
 // Endpoint raiz (teste rápido no navegador)
-app.MapGet("/", () => "✅ API YoutubeDownload rodando com sucesso! ");
+app.MapGet("/", () => " API YoutubeDownload rodando com sucesso! ");
 
 // Swagger — visível apenas se for ambiente local
 if (app.Environment.IsDevelopment())

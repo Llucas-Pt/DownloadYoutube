@@ -11,7 +11,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
 # INSTALA FFMPEG NO LINUX (necessário para executar no Render)
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg 
 
 COPY --from=build /app/publish .
 
