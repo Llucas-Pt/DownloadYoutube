@@ -1,5 +1,5 @@
 ﻿// eslint-disable no-undef 
-import { useState } from "react";
+import { useState} from "react";
 import './Youtube.css'
 
 
@@ -10,8 +10,8 @@ function App() {
     //const [downloadLink, setDownloadLink] = useState(null);
     const [isLoading, setIsLoading] = useState(false); // estado de carregamento
     const apiUrl = import.meta.env.VITE_API_URL;
+    const [dados, setDados] = useState([])
 
-    
 
     const handleDownload = async () => {
         try {
@@ -25,12 +25,11 @@ function App() {
         });
 
         if (!response.ok) {
-            alert("Erro ao baixar o vídeo");
-            return;
+            throw new Error("Erro ao baixar o vídeo");
         }
 
         // Transforma a resposta (arquivo binário) em um blob
-        const blob = await response.blob();
+         const blob = await response.blob();
         // Cria uma URL temporária para o arquivo
         const downloadUrl = URL.createObjectURL(blob);
         // Cria um elemento <a> invisível para iniciar o download
@@ -45,15 +44,42 @@ function App() {
             link.click();
             document.body.removeChild(link);
 
+
+            const dadosDownload = {
+                id: Date.now(),// id único baseado no timestamp
+                url: url, // Url
+                format: format.toUpperCase(), // formato em maiúsculo (MP4 ou MP3)
+                date: new Date().toLocaleString(), // data e hora atual
+                status: "Concluído", // status do download
+            };
+
+            setDados([dadosDownload, ...dados]); // adiciona no início da tabela
+
+            // Limpa o input
+            setUrl("");
+
             // Libera o objeto da memória
             URL.revokeObjectURL(downloadUrl);
+
         } catch (error) {
+            setDados(prevDados => [
+                {
+                    id: Date.now(), 
+                    url, 
+                    format: format.toUpperCase(),
+                    date: new Date().toLocaleString(),
+                    status: "Erro"
+                },
+                ...prevDados
+            ]);
             console.error("Erro ao baixar:", error);
             alert("Ocorreu um erro ao tentar baixar o vídeo.");
         } finally {
             setIsLoading(false); // desativa o “Carregando...” depois que termina
         }
     };
+
+
     return (
         <div className="container">
 
@@ -96,29 +122,17 @@ function App() {
                         <tr>
                             <th>URL</th>
                             <th>Format</th>
-                            <th>Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>youtube.com/watch?v=123...</td>
-                            <td>MP4</td>
-                            <td>2023-10-26</td>
-                            <td className="success">Completed</td>
+                        {dados.map((item) => ( 
+                            <tr key={item.id}>
+                            <td>{item.url.slice(0, 25)}</td>
+                            <td>{item.format}</td>
+                                <td className={item.status === "Concluído" ? "success" : "error"}>{item.status}</td>
                         </tr>
-                        <tr>
-                            <td>youtube.com/watch?v=456...</td>
-                            <td>MP4</td>
-                            <td>2023-10-25</td>
-                            <td className="success">Completed</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td className="error">Error</td>
-                        </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
