@@ -30,7 +30,7 @@ A aplicação envia a requisição para a API, que realiza o download.
 | **React** | Interface do usuário (Front-end) |
 | **C# - ASP.NET Core Web API** | Processamento e lógica do download |
 | **Docker** | Container para execução do Back-end |
-| **Axios / Fetch API** | Comunicação entre Front-end e Back-end |
+| **Fetch API** | Comunicação entre Front-end e Back-end |
 
 ---
 
